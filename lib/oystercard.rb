@@ -15,12 +15,14 @@ class Oystercard
     fail "Top up amount pushes you over your maximum oyster card limit of £#{DEFAULT_LIMIT}. Your current balance is £#{@balance}" if limit_reached?(money)
 
       @balance += money
+  end
 
-    end
+  def deduct
+  end
+
 private
+
   def limit_reached?(money)
     @balance + money > DEFAULT_LIMIT
   end
-
-
 end
