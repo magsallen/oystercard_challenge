@@ -22,7 +22,7 @@ class Oystercard
     @journey_status
   end
 
-  def touch_in
+  def touch_in(station)
     fail "Please top up, not enough credit" if @balance < MINIMUM_BALANCE
     @journey_status = true
   end
