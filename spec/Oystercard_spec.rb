@@ -7,6 +7,9 @@ describe Oystercard do
     it "starts with a balance of zero" do
       expect(subject.balance).to eq 0
     end
+    it 'starts at a nil station' do
+    expect(subject.entry_station).to eq nil
+    end
   end
 
   describe "#top_up" do

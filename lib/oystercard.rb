@@ -1,6 +1,6 @@
 class Oystercard
 
-  attr_reader :balance
+  attr_reader :balance 
 
   DEFAULT_LIMIT = 90.00
   BALANCE = @balance.to_f
