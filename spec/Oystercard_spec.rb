@@ -31,5 +31,31 @@ describe Oystercard do
     end
   end
 
+  describe '#in_journey?' do
+    it "returns current journey status of Oystercard" do
+      expect(subject).not_to be_in_journey
+    end
+  end
+
+  describe "#touch_in" do
+    it 'changes the journey status to true' do
+      subject.top_up Oystercard::MINIMUM_BALANCE
+      subject.touch_in
+      expect(subject).to be_in_journey
+      end
+    it 'raises an error if balance below minimun limit' do
+
+      expect{ subject.touch_in }.to raise_error "Please top up, not enough credit"
+    end
+  end
+
+  describe "#touch_out" do
+    it 'changes the journey statis to false' do
+      subject.top_up Oystercard::MINIMUM_BALANCE
+      subject.touch_in
+      subject.touch_out
+      expect(subject).not_to be_in_journey
+    end
+  end
 
 end

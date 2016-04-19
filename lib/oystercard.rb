@@ -4,11 +4,11 @@ class Oystercard
 
   DEFAULT_LIMIT = 90.00
   BALANCE = @balance.to_f
-
+  MINIMUM_BALANCE = 1
 
   def initialize
     @balance = 0.00
-
+    @journey_status = false
   end
 
   def top_up(money)
@@ -19,6 +19,19 @@ class Oystercard
 
   def deduct(money)
     @balance -= money
+  end
+
+  def in_journey?
+    @journey_status
+  end
+
+  def touch_in
+    fail "Please top up, not enough credit" if @balance < MINIMUM_BALANCE
+    @journey_status = true
+  end
+
+  def touch_out
+    @journey_status = false
   end
 
 private
