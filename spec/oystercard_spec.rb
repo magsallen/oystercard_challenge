@@ -35,5 +35,53 @@ let(:max_bal)  {Oystercard::MAX_BALANCE}
 
   end
 
+  describe '#deduct' do
+
+    it{should respond_to(:deduct)}
+
+    it 'should deduct a passed value from the card balance' do
+      expect{card.deduct(5)}.to change{card.balance}.by(-5)
+    end
+
+  end
+
+  describe '#in_journey?' do
+
+    it 'should be initialized with in_journey? as false' do
+      expect(card.in_journey?).to eq(false)
+    end
+
+  end
+
+  describe '#touch_in' do
+
+    it'should change the value of in_journey to true' do
+      card.touch_in
+      expect(card).to be_in_journey
+    end
+
+  end
+
+  describe '#touch_out' do
+
+    it'should change the value of in_journey to false' do
+      card.touch_out
+      expect(card).not_to be_in_journey
+    end
+
+
+  end
+
+
+
+
+
+
+
+
+
+
+
+
 
 end
