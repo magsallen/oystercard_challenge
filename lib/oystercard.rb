@@ -5,6 +5,7 @@ class Oystercard
   DEFAULT_LIMIT = 90.00
   BALANCE = @balance.to_f
   MINIMUM_BALANCE = 1
+  FARE = 1
 
   def initialize
     @balance = 0.00
@@ -15,10 +16,6 @@ class Oystercard
     fail "Top up amount pushes you over your maximum oyster card limit of £#{DEFAULT_LIMIT}. Your current balance is £#{@balance}" if limit_reached?(money)
 
       @balance += money
-  end
-
-  def deduct(money)
-    @balance -= money
   end
 
   def in_journey?
@@ -32,11 +29,16 @@ class Oystercard
 
   def touch_out
     @journey_status = false
+    deduct
   end
 
 private
 
   def limit_reached?(money)
     @balance + money > DEFAULT_LIMIT
+  end
+
+  def deduct
+    @balance -= FARE
   end
 end

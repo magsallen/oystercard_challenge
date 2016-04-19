@@ -25,11 +25,7 @@ describe Oystercard do
 
   end
 
-  describe "#deduct" do
-    it "deducts a fare from oyster cardto pay for customers journey" do
-      expect{ subject.deduct 1 }.to change { subject.balance }.by -1
-    end
-  end
+
 
   describe '#in_journey?' do
     it "returns current journey status of Oystercard" do
@@ -59,7 +55,7 @@ describe Oystercard do
     it "deducts the fare from the oystercard" do
       subject.top_up Oystercard::MINIMUM_BALANCE
       subject.touch_in
-      expect{ subject.touch_out }.to change { subject.balance }.by -1
+      expect{ subject.touch_out }.to change { subject.balance }.by -Oystercard::FARE
     end
   end
 
