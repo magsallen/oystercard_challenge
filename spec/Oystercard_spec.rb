@@ -71,7 +71,9 @@ end
     it "remembers exit station" do
       subject.top_up Oystercard::MINIMUM_BALANCE
       subject.touch_in(station)
-      expect(subject).to respond_to(:touch_out).with(1).argument
+      # expect(subject).to respond_to(:touch_out).with(1).argument
+      subject.touch_out(station)
+      expect(subject.exit_station).to eq station
     end
   end
 
