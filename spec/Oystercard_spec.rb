@@ -44,8 +44,8 @@ end
     end
     it ' remembers the station we touched in' do
       subject.top_up Oystercard::MINIMUM_BALANCE
-      # expect(subject).to respond_to(:touch_in).with(1).argument
-      expect(subject.touch_in(station)).to eq station
+      subject.touch_in(station)
+      expect(subject.entry_station).to eq station
     end
   end
 
