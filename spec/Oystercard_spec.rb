@@ -23,5 +23,12 @@ describe Oystercard do
     end
   end
 
+  describe "#deduct" do
+    it "deducts a fare from oyster cardto pay for customers journey" do
+      expect{ subject.deduct -1 }.to change { subject.balance }.by -1
+    end
+  end
+
+
 end
 
