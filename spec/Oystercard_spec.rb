@@ -22,12 +22,12 @@ describe Oystercard do
       expect{ subject.top_up 91 }.to raise_error message
     end
 
-  
+
   end
 
   describe "#deduct" do
     it "deducts a fare from oyster cardto pay for customers journey" do
-      expect{ subject.deduct -1 }.to change { subject.balance }.by -1
+      expect{ subject.deduct 1 }.to change { subject.balance }.by -1
     end
   end
 
