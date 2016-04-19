@@ -21,11 +21,7 @@ describe Oystercard do
       message = "Top up amount pushes you over your maximum oyster card limit of £#{Oystercard::DEFAULT_LIMIT}. Your current balance is £#{Oystercard::BALANCE}"
       expect{ subject.top_up 91 }.to raise_error message
     end
-
-
-  end
-
-
+end
 
   describe '#in_journey?' do
     it "returns current journey status of Oystercard" do
@@ -45,7 +41,8 @@ describe Oystercard do
     end
     it ' remembers the station we touched in' do
       subject.top_up Oystercard::MINIMUM_BALANCE
-      expect(subject).to respond_to(:touch_in).with(1).argument
+      # expect(subject).to respond_to(:touch_in).with(1).argument
+      expect(subject.touch_in(station)).to eq station
     end
   end
 
