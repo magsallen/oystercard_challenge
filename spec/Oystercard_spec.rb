@@ -2,6 +2,7 @@ require "oystercard"
 
 describe Oystercard do
 
+ it {is_expected.to respond_to(:list)}
 
   describe "#initalize" do
     it "starts with a balance of zero" do
@@ -9,6 +10,9 @@ describe Oystercard do
     end
     it 'starts at a nil station' do
     expect(subject.entry_station).to eq nil
+    end
+    it 'should have an empty list of journeys' do
+      expect(subject.list).to eq({})
     end
   end
 
@@ -21,7 +25,7 @@ describe Oystercard do
   describe "#limit_reached" do
     it "raise error if #top_up(amount) puts balance over maximum limit." do
 
-      message = "Top up amount pushes you over your maximum oyster card limit of £#{Oystercard::DEFAULT_LIMIT}. Your current balance is £#{Oystercard::BALANCE}"
+      message = "£#{Oystercard::DEFAULT_LIMIT} is the top up limit £#{Oystercard::BALANCE}"
       expect{ subject.top_up 91 }.to raise_error message
     end
 end
@@ -33,8 +37,9 @@ end
   end
 
   describe "#touch_in(station)" do
-  
+
     let (:station) {double :station}
+
     it 'changes the journey status to true' do
       subject.top_up Oystercard::MINIMUM_BALANCE
       subject.touch_in(station)
@@ -43,7 +48,7 @@ end
     it 'raises an error if balance below minimun limit' do
       expect{ subject.touch_in(station) }.to raise_error "Please top up, not enough credit"
     end
-    it ' remembers the station we touched in' do
+    it 'remembers the station we touched in' do
       subject.top_up Oystercard::MINIMUM_BALANCE
       subject.touch_in(station)
       expect(subject.entry_station).to eq station
@@ -51,34 +56,31 @@ end
   end
 
   describe "#touch_out" do
+
     before(:each) do
       subject.top_up Oystercard::MINIMUM_BALANCE
       subject.touch_in(station)
     end
+
     let (:station) {double :station}
+
     it 'changes the journey statis to false' do
-      # subject.top_up Oystercard::MINIMUM_BALANCE
-      # subject.touch_in(station)
       subject.touch_out(station)
       expect(subject).not_to be_in_journey
     end
     it "deducts the fare from the oystercard" do
-      # subject.top_up Oystercard::MINIMUM_BALANCE
-      # subject.touch_in(station)
       expect{ subject.touch_out(station) }.to change { subject.balance }.by -Oystercard::FARE
     end
     it "forgets entry station upon touch_out" do
-      # subject.top_up Oystercard::MINIMUM_BALANCE
-      # subject.touch_in(station)
       subject.touch_out(station)
       expect(subject.entry_station).to eq nil
     end
-    it "remembers exit station" do
-      # subject.top_up Oystercard::MINIMUM_BALANCE
-      # subject.touch_in(station)
-      # expect(subject).to respond_to(:touch_out).with(1).argument
-      subject.touch_out(station)
-      expect(subject.exit_station).to eq station
+    # it "remembers exit station" do
+    #   subject.touch_out(station)
+    #   expect(subject.exit_station).to eq nil
+    # end
+    it "should add the journey to the list" do
+      expect{subject.touch_out(station)}.to change{subject.list.length}.by 1
     end
   end
 

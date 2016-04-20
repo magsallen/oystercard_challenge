@@ -1,7 +1,6 @@
 class Oystercard
 
-  attr_reader :balance, :entry_station, :exit_station
-
+  attr_reader :balance, :entry_station, :exit_station, :list
   DEFAULT_LIMIT = 90.00
   BALANCE = @balance.to_f
   MINIMUM_BALANCE = 1
@@ -9,6 +8,7 @@ class Oystercard
 
   def initialize
     @balance = 0.00
+    @list = {}
   end
 
   def top_up(money)
@@ -20,15 +20,18 @@ class Oystercard
     !!@entry_station
   end
 
-  def touch_in(station)
+  def touch_in(station_in)
     fail "Please top up, not enough credit" if @balance < MINIMUM_BALANCE
-    @entry_station = station
+    @entry_station = station_in
+
   end
 
-  def touch_out(station)
-    @entry_station = nil
-    @exit_station = station
+  def touch_out(station_out)
+    @exit_station = station_out
+    @list[@entry_station] = @exit_station
     deduct
+    @entry_station = nil
+    @exit_station = nil
   end
 
 private
