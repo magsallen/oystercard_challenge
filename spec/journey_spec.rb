@@ -20,6 +20,10 @@ it "finish sets compltete to true" do
   expect(subject).to be_complete
 end
 
+it 'is expected to charge a penalty fare when no touch in' do
+  
+end
+
 end
 
 # describe '#initialize' do

@@ -1,6 +1,8 @@
+require_relative 'oystercard'
 class Journey
 attr_reader :complete
 
+FARE = 5
  def initialize
    @complete = true
  end
@@ -15,7 +17,10 @@ attr_reader :complete
   end
 
   def fare
-    # calculate fare
+    1
+  # (@list[-1])
+  #   #   @list[-1] - split into key and value
+  #   # calculate fare
   end
 
   def complete?

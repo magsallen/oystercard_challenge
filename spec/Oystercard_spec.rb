@@ -1,5 +1,6 @@
 require "oystercard"
 
+
 describe Oystercard do
 
  it {is_expected.to respond_to(:list)}
@@ -69,7 +70,7 @@ end
       expect(subject).not_to be_in_journey
     end
     it "deducts the fare from the oystercard" do
-      expect{ subject.touch_out(station) }.to change { subject.balance }.by -Oystercard::FARE
+      expect{ subject.touch_out(station) }.to change { subject.balance }.by -1
     end
     it "forgets entry station upon touch_out" do
       subject.touch_out(station)
@@ -82,6 +83,7 @@ end
     it "should add the journey to the list" do
       expect{subject.touch_out(station)}.to change{subject.list.length}.by 1
     end
+
   end
 
 end
