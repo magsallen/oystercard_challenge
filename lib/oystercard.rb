@@ -12,7 +12,7 @@ class Oystercard
   end
 
   def top_up(money)
-    fail "Top up amount pushes you over your maximum oyster card limit of £#{DEFAULT_LIMIT}. Your current balance is £#{@balance}" if limit_reached?(money)
+    fail "£#{DEFAULT_LIMIT} is the top up limit £#{BALANCE}" if limit_reached?(money)
     @balance += money
   end
 
