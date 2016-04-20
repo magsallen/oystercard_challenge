@@ -21,6 +21,8 @@ class Oystercard
   end
 
   def touch_in(station_in)
+    # tell Journey.start to set in_journey to true
+    # tell Journey.complete? to false
     fail "Please top up, not enough credit" if @balance < MINIMUM_BALANCE
     @entry_station = station_in
 
