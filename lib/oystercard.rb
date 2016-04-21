@@ -19,10 +19,6 @@ class Oystercard
     @balance += money
   end
 
-  def in_journey?
-    @journey.in_journey?
-  end
-
   def touch_in(entry_station)
     deduct if in_journey?
     fail "Please top up, not enough credit" if @balance < MINIMUM_BALANCE
@@ -31,12 +27,15 @@ class Oystercard
   end
 
   def touch_out(exit_station)
-    # deduct if ! in_journey? 
     @journey.finish(exit_station)
     deduct
   end
 
-# private
+  private
+
+  def in_journey?
+    @journey.in_journey?
+  end
 
   def limit_reached?(money)
     @balance + money > DEFAULT_LIMIT
