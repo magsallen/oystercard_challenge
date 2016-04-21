@@ -54,4 +54,21 @@ end
 
   end
 
+  context 'Edge cases' do
+
+    before(:each) do
+      subject.top_up (Oystercard::DEFAULT_LIMIT)
+
+      it 'deducts penalty fare if no touch out' do
+        subject.touch_in(station)
+        expect{subject.touch_in(station)}.to change{subject.balance}.by Oystercard::PENALTY_FARE
+      end
+
+      it 'deducts penalty fare if no touch in' do
+
+
+      end
+    end
+
+  end
 end

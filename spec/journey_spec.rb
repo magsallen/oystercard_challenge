@@ -1,13 +1,16 @@
 require 'journey'
 describe Journey do
+  context "Method check" do
    it {is_expected.to respond_to :start}
    it {is_expected.to respond_to :finish}
    it {is_expected.to respond_to :fare_calculator}
    it {is_expected.to respond_to :journey_log}
-
+  end
+  
    let(:entry_station) {double :entry_station}
    let(:exit_station) {double :exit_station}
 
+  context 'Adds entry & exit stations' do
     it 'start adds an entry station to the log' do
       subject.start(entry_station)
       expect(subject.journey_log[:begin]).to eq(entry_station)
@@ -18,7 +21,14 @@ describe Journey do
       subject.finish(exit_station)
       expect(subject.journey_log[:end]).to eq(exit_station)
     end
+  end
 
+    it 'in_journey? should return true if journey in progress' do
+      subject.start(entry_station)
+      expect(subject.in_journey?).to be_truthy
+    end
+
+  context 'Calculates fare' do
     it "should calculate minimum fare for touch_in & touch_out" do
       subject.start(entry_station)
       subject.finish(exit_station)
@@ -35,11 +45,5 @@ describe Journey do
       subject.finish(exit_station)
       expect(subject.fare_calculator).to eq(described_class::PENALTY_FARE)
     end
-
-    it 'in_journey? should return true if journey in progress' do
-      subject.start(entry_station)
-      expect(subject.in_journey?).to be_truthy
-    end
-
-
+  end
 end
