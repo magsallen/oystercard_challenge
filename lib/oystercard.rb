@@ -11,6 +11,7 @@ class Oystercard
 
   def initialize
     @balance = 0.00
+    @journey = Journey.new
   end
 
   def top_up(money)
@@ -18,18 +19,19 @@ class Oystercard
     @balance += money
   end
 
-  # def in_journey?
-
-  # end
+  def in_journey?
+    @journey.in_journey?
+  end
 
   def touch_in(entry_station)
-    #if @journey.in_journey? then deduct
+    deduct if in_journey?
     fail "Please top up, not enough credit" if @balance < MINIMUM_BALANCE
     journey_method
     @journey.start(entry_station)
   end
 
   def touch_out(exit_station)
+    # deduct if ! in_journey? 
     @journey.finish(exit_station)
     deduct
   end
