@@ -1,16 +1,15 @@
 require_relative 'oystercard'
 class Journey
-attr_reader :complete, :journey_log
+attr_reader :complete, :journey_log #:new_journey
 MIN_FARE = 1
 PENALTY_FARE = 6
 
   def initialize
-    # @complete = true
     @journey_log = {}
+    # @new_journey = self
   end
 
   def start(entry_station)
-    # @complete =false
     @journey_log[:begin] = entry_station
   end
 
@@ -20,13 +19,7 @@ PENALTY_FARE = 6
   end
 
   def fare_calculator
-    @journey_log.has_key?(:start) && @journey_log.has_key?(:end) ? MIN_FARE : PENALTY_FARE
+    @journey_log.has_key?(:begin) && @journey_log.has_key?(:end) ? MIN_FARE : PENALTY_FARE
   end
-
-
-
-  # def complete?
-  #   @complete
-  # end
 
 end

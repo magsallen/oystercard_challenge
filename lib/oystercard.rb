@@ -6,13 +6,14 @@ class Oystercard
   DEFAULT_LIMIT = 90.00
   BALANCE = @balance.to_f
   MINIMUM_BALANCE = 1
-  # FARE = 1
+  MIN_FARE = 1
+  PENALTY_FARE = 6
 
   def initialize
     @balance = 0.00
     # @journey_log = {}
     @journey = nil
-    @journey = Journey.new
+    # @journey = Journey.new
   end
 
   def top_up(money)
@@ -27,7 +28,7 @@ class Oystercard
 
   def touch_in(entry_station)
     fail "Please top up, not enough credit" if @balance < MINIMUM_BALANCE
-    # journey_method
+    journey_method
     @journey.start(entry_station)
     # @entry_station = station_in
   end
@@ -53,9 +54,9 @@ class Oystercard
     @balance -= @journey.fare_calculator
   end
 
-  # def journey_method
-  #   @journey = Journey.new
-  #   # @journey.start
-  # end
+  def journey_method
+    @journey = Journey.new
+    # @journey.start
+  end
 
 end

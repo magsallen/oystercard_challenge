@@ -64,14 +64,20 @@ end
     end
 
     let (:station) {double :station}
+    let (:journey) {double :journey}
 
     # it 'changes the journey status to false' do
     #   subject.touch_out(station)
     #   expect(subject).not_to be_in_journey
     # end
     it "deducts the fare from the oystercard" do
-      expect{ subject.touch_out(station) }.to change { subject.balance }.by -1
+      allow(journey).to receive(:fare_calculator).and_return(described_class::MIN_FARE)
+      subject.top_up(10)
+      subject.touch_in(station)
+      expect{ subject.touch_out(station) }.to change { subject.balance }.by -described_class::MIN_FARE
     end
+
+
     # it "forgets entry station upon touch_out" do
     #   subject.touch_out(station)
     #   expect(subject.entry_station).to eq nil

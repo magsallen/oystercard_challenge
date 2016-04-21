@@ -19,6 +19,9 @@ describe Journey do
   #   end
   #   end
 
+    # it 'creates a new journey' do
+    #   expect(subject.start(entry_station)).to be_a Journey
+    # end
 
     it 'start adds an entry station to the log' do
       subject.start(entry_station)
