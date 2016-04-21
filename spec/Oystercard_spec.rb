@@ -3,7 +3,7 @@ require "oystercard"
 
 describe Oystercard do
 
- it {is_expected.to respond_to(:list)}
+ it {is_expected.to respond_to(:journey_log)}
 
   describe "#initalize" do
     it "starts with a balance of zero" do
@@ -13,7 +13,7 @@ describe Oystercard do
     expect(subject.entry_station).to eq nil
     end
     it 'should have an empty list of journeys' do
-      expect(subject.list).to eq({})
+      expect(subject.journey_log).to eq({})
     end
   end
 
@@ -65,7 +65,7 @@ end
 
     let (:station) {double :station}
 
-    it 'changes the journey statis to false' do
+    it 'changes the journey status to false' do
       subject.touch_out(station)
       expect(subject).not_to be_in_journey
     end
@@ -81,7 +81,7 @@ end
     #   expect(subject.exit_station).to eq nil
     # end
     it "should add the journey to the list" do
-      expect{subject.touch_out(station)}.to change{subject.list.length}.by 1
+      expect{subject.touch_out(station)}.to change{subject.journey_log.length}.by 1
     end
 
   end

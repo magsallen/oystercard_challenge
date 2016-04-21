@@ -1,19 +1,20 @@
 require_relative 'oystercard'
 class Journey
-attr_reader :complete
+attr_reader :complete, :journey_log
 
 FARE = 5
  def initialize
    @complete = true
+   @journey_log
  end
 
-  def start
-    @complete =false
-    # something else?
+  def start(entry_station)
+    # @complete =false
+    @journey_log[:begin]=(entry_station)
     end
 
   def finish
-    @complete = true
+    # @complete = true
   end
 
   def fare
@@ -23,8 +24,8 @@ FARE = 5
   #   # calculate fare
   end
 
-  def complete?
-    @complete
-  end
+  # def complete?
+  #   @complete
+  # end
 
 end

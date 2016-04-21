@@ -2,7 +2,7 @@ require_relative "journey"
 require_relative "station"
 class Oystercard
 
-  attr_reader :balance, :entry_station, :exit_station, :list, :journey
+  attr_reader :balance, :entry_station, :exit_station, :journey_log, :journey
   DEFAULT_LIMIT = 90.00
   BALANCE = @balance.to_f
   MINIMUM_BALANCE = 1
@@ -10,7 +10,7 @@ class Oystercard
 
   def initialize
     @balance = 0.00
-    @list = {}
+    @journey_log = {}
     @journey = nil
   end
 
@@ -23,10 +23,6 @@ class Oystercard
     !!@entry_station
   end
 
-  # def create_journey
-  #   journey = self.journey_method
-  # end
-  #
 
   def touch_in(station_in)
     fail "Please top up, not enough credit" if @balance < MINIMUM_BALANCE
@@ -38,7 +34,7 @@ class Oystercard
   def touch_out(station_out)
     @journey.finish
     @exit_station = station_out
-    @list[@entry_station] = @exit_station
+    @journey_log[@entry_station] = @exit_station
       # @journey.fare(@list[-1])
     deduct
     @entry_station = nil
